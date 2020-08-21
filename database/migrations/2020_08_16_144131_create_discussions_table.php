@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateDiscussionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('discussions', function (Blueprint $table) {
@@ -18,11 +14,10 @@ class CreateDiscussionsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->text('content');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('channel_id');
 
             $table->timestamps();
-
         });
     }
 
