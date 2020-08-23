@@ -13,6 +13,7 @@ class CreateDiscussionsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('title');
+            $table->integer('reply_id')->nullable();
             $table->text('content');
             $table->string('slug')->unique();
             $table->string('channel_id');
