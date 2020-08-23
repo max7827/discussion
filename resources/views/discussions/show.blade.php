@@ -25,7 +25,7 @@
 
                 <strong> {{strtoupper($discussion->bestReply->owner->name)}}</strong>
 
-            </span> <span style="color:aliceblue" class="float-right border  rounded border-dark mr-3">Best Reply</span>
+            </span> <span style="color:aliceblue" class="float-right font-italic text-dark mr-3">Best Reply</span>
         </div>
         <div class="card-body">
             {!!$discussion->bestReply->content!!}
@@ -48,6 +48,7 @@
 
         </span>
 
+        @auth
         @if(auth()->user()->id == $discussion->user_id)
         <form method="POST" action="{{route('best-reply',['discussion'=>$discussion->slug,'reply'=>$reply->id])}}">
             @csrf
@@ -55,6 +56,7 @@
 
         </form>
         @endif
+        @endauth
     </div>
 
     <div class="card-body">

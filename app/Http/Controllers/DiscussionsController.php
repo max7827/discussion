@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDiscussionRequest;
 use Illuminate\Http\Request;
 use App\Discussion;
+use App\Notifications\ReplyMarkedAsBestReply;
 use App\Reply;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
@@ -21,7 +22,7 @@ class DiscussionsController extends Controller
     public function index()
     {
         return view('discussions.index', [
-            'discussions' => Discussion::paginate(3)
+            'discussions' => Discussion::latest()->paginate(3)
         ]);
     }
 
@@ -59,7 +60,7 @@ class DiscussionsController extends Controller
     public function reply(Discussion $discussion, Reply $reply)
     {
         Discussion::where('slug', $discussion->slug)->update(['reply_id' => $reply->id]);
-
+        $reply->owner->notify(new ReplyMarkedAsBestReply($reply->discussion));
         return redirect()->back();
     }
 
@@ -72,6 +73,7 @@ class DiscussionsController extends Controller
      */
     public function show(Discussion $discussion)
     {
+
         return view('discussions.show', ['discussion' => $discussion]);
     }
 
