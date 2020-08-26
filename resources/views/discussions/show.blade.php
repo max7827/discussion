@@ -18,6 +18,9 @@
 
     @if($discussion->bestReply)
 
+
+
+
     <div class="card">
         <div class="card-header-sm bg-success">
             <span>

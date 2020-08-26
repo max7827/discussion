@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\CreateDiscussionRequest;
 use Illuminate\Http\Request;
 use App\Discussion;
@@ -10,13 +11,21 @@ use App\Reply;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
+
 class DiscussionsController extends Controller
 {
 
     public function __construct()
     {
 
-        $this->middleware('auth')->only(['create', 'store']);
+        $this->middleware(['auth', 'verified'])->only(['create', 'store']);
+    }
+
+    public function backup()
+    {
+        exec("mysqldump --user=root --password=root discussion --result-file=" . date('Y-m-d-H:i') . "-mysqlbkp.sql 2>&1");
+        Session::flash('msg', 'Backup Successfully Created');
+        return redirect()->back();
     }
 
     public function index()
@@ -60,7 +69,10 @@ class DiscussionsController extends Controller
     public function reply(Discussion $discussion, Reply $reply)
     {
         Discussion::where('slug', $discussion->slug)->update(['reply_id' => $reply->id]);
-        $reply->owner->notify(new ReplyMarkedAsBestReply($reply->discussion));
+        if ($reply->owner->id != $discussion->author->id) {
+
+            $reply->owner->notify(new ReplyMarkedAsBestReply($reply->discussion));
+        }
         return redirect()->back();
     }
 

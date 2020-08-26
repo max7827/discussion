@@ -8,7 +8,16 @@
     <title>Laravel</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <!-- Styles -->
     <style>
@@ -86,13 +95,30 @@
             <div class="title m-b-md">
                 Laravel
             </div>
+            <a href="{{'backp'}}" class="btn btn-primary my-5">take Backup</a>
+
+
 
             <div class="links">
                 <h3> <a href="{{route('discussions.index')}}">Discussions</a>
                 </h3>
+
             </div>
+            @if(session()->has('msg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{session()->get('msg')}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @endif
         </div>
     </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.js"></script>
+    <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 </body>
 
 </html>
