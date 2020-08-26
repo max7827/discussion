@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDiscussionRequest;
 use Illuminate\Http\Request;
 use App\Discussion;
+use App\Channel;
 use App\Notifications\ReplyMarkedAsBestReply;
 use App\Reply;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
@@ -28,8 +31,18 @@ class DiscussionsController extends Controller
         return redirect()->back();
     }
 
-    public function index()
+    public function index(Request $req)
     {
+        // dd($req->query('channel'));
+
+        $d = Channel::where('slug', $req->query('channel'))->first();
+
+        // dd(request()->query('channel'));
+        if (!empty($req->query('channel'))) {
+            return view('discussions.index', [
+                'discussions' => Discussion::where('channel_id', $d->id)->latest()->paginate(3)
+            ]);
+        }
         return view('discussions.index', [
             'discussions' => Discussion::latest()->paginate(3)
         ]);
@@ -54,6 +67,12 @@ class DiscussionsController extends Controller
      */
     public function store(CreateDiscussionRequest $request)
     {
+        $exist = Discussion::where('slug', Str::slug($request->title))->first();
+        // dd($exist);
+        if ($exist) {
+            Session::flash('msg', 'title already exists');
+            return redirect()->back()->withInput();
+        }
 
         Discussion::create([
             'title' => $request->title,

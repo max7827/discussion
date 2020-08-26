@@ -10,7 +10,14 @@
     <div class="card-body">
         <form method="post" action="{{route('discussions.store')}}">
             @csrf
-
+            @if(session()->has('msg'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{session()->get('msg')}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <div class="form-group">
                 <label for="title">Enter Title</label>
                 <input type="text" name="title" class="form-control">

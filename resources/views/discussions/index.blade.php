@@ -18,7 +18,11 @@
 @endforeach
 
 <div class="float-right">
-    {{$discussions->links()}}
+    {{$discussions->appends([
+
+        'channel'=> request()->query('channel') 
+        
+        ])->links()}}
 </div>
 
 @endsection
