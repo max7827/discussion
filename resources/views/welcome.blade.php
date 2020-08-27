@@ -95,7 +95,8 @@
             <div class="title m-b-md">
                 Laravel
             </div>
-            <a href="{{'backp'}}" class="btn btn-primary my-5">take Backup</a>
+            <a href="{{'backupfiles'}}" class="btn btn-primary my-5">take backup of files</a>
+            <a href="{{'backupdatabase'}}" class="btn btn-primary my-5">take backup of database</a>
 
 
 

@@ -41,4 +41,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Discussion::class);
     }
+
+    public function getNameAttribute($a)
+    {
+        return ucwords($a);
+    }
 }

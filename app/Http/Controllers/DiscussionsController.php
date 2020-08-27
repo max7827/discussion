@@ -24,12 +24,61 @@ class DiscussionsController extends Controller
         $this->middleware(['auth', 'verified'])->only(['create', 'store']);
     }
 
-    public function backup()
+    public function backupDatabase()
     {
-        exec("mysqldump --user=root --password=root discussion --result-file=" . date('Y-m-d-H:i') . "-mysqlbkp.sql 2>&1");
+        $dst = dirname(public_path()) . "/storage/app";
+        exec("mysqldump --user=root --password=root discussion --result-file=" . $dst . "/" . date('Y-m-d-H:i') . "-mysqlbkp.sql 2>&1");
         Session::flash('msg', 'Backup Successfully Created');
         return redirect()->back();
     }
+
+    public function backupFiles()
+    {
+
+
+        function custom_copy($src, $dst)
+        {
+
+            // open the source directory 
+            $dir = opendir($src);
+
+            // Make the destination directory if not exist 
+            @mkdir($dst);
+
+            // Loop through the files in source directory 
+            while ($file = readdir($dir)) {
+
+                if (($file != '.') && ($file != '__bkpdir__') && ($file != '..')) {
+                    if (is_dir($src . '/' . $file)) {
+
+                        // Recursively calling custom copy function 
+                        // for sub directory  
+                        custom_copy($src . '/' . $file, $dst . '/' . $file);
+                    } else {
+                        copy($src . '/' . $file, $dst . '/' . $file);
+                    }
+                }
+            }
+
+            closedir($dir);
+        }
+
+        // $src = "/var/www/html/ad/d/vendor";
+
+        $dst = dirname(public_path()) . "/storage/app/__bkpdir__";
+
+
+
+        $src = dirname(public_path());
+
+        custom_copy($src, $dst);
+        // // Enter the name of directory 
+        // $pathdir = $src;
+
+        Session::flash('msg', 'Backup Successfully Created');
+        return redirect()->back();
+    }
+
 
     public function index(Request $req)
     {

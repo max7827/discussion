@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Model;
+
+
 class Discussion extends Model
 {
 
@@ -27,5 +30,14 @@ class Discussion extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function getTitleAttribute($a)
+    {
+        return ucwords(strtolower($a));
+    }
+    public function setTitleAttribute($a)
+    {
+        $this->attribute['title'] =  ucwords($a);
     }
 }

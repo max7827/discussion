@@ -26,5 +26,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('discussions', 'DiscussionsController');
 Route::resource('discussions/{discussion}/replies', 'RepliesController');
 Route::get('users/notifications', 'UserController@notifications')->name('users.notifications');
-Route::get('backp', 'DiscussionsController@backup');
+Route::get('backupfiles', 'DiscussionsController@backupFiles');
+Route::get('backupdatabase', 'DiscussionsController@backupDatabase');
 Route::post('discussions/{discussion}/replies/{reply}/mark-as-best-reply', 'DiscussionsController@reply')->name('best-reply');
