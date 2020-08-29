@@ -116,12 +116,12 @@ class DiscussionsController extends Controller
      */
     public function store(CreateDiscussionRequest $request)
     {
-        $exist = Discussion::where('slug', Str::slug($request->title))->first();
-        // dd($exist);
-        if ($exist) {
-            Session::flash('msg', 'title already exists');
-            return redirect()->back()->withInput();
-        }
+        // $exist = Discussion::where('slug', Str::slug($request->title))->first();
+        // // dd($exist);
+        // if ($exist) {
+        //     Session::flash('msg', 'title already exists');
+        //     return redirect()->back()->withInput();
+        // }
 
         Discussion::create([
             'title' => $request->title,
