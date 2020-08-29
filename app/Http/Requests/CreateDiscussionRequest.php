@@ -25,7 +25,7 @@ class CreateDiscussionRequest extends FormRequest
     {
 
         return [
-            'title' => 'required',
+            'title' => 'required|unique:discussions',
             'content' => 'required',
             'channel' => 'required',
         ];
@@ -38,6 +38,7 @@ class CreateDiscussionRequest extends FormRequest
 
         return [
             'title.required' => 'title required',
+            'title.unique'      => 'title already exists',
             'content.required' => 'content required',
             'channel.required' => 'required',
         ];
