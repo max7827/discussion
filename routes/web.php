@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('typing');
+    return view('d');
 });
 
 Auth::routes(['verify' => true]);
@@ -28,4 +28,5 @@ Route::resource('discussions/{discussion}/replies', 'RepliesController');
 Route::get('users/notifications', 'UserController@notifications')->name('users.notifications');
 Route::get('backupfiles', 'DiscussionsController@backupFiles');
 Route::get('backupdatabase', 'DiscussionsController@backupDatabase');
+Route::get('sendemail', 'DiscussionsController@sendemail');
 Route::post('discussions/{discussion}/replies/{reply}/mark-as-best-reply', 'DiscussionsController@reply')->name('best-reply');

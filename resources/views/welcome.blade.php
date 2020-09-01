@@ -97,7 +97,7 @@
             </div>
             <a href="{{'backupfiles'}}" class="btn btn-primary my-5">take backup of files</a>
             <a href="{{'backupdatabase'}}" class="btn btn-primary my-5">take backup of database</a>
-
+            <a href="{{'sendemail'}}" class="btn btn-success my-5">send email</a>
 
 
             <div class="links">

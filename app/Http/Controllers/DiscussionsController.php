@@ -7,10 +7,13 @@ use App\Http\Requests\CreateDiscussionRequest;
 use Illuminate\Http\Request;
 use App\Discussion;
 use App\Channel;
+use App\Mail\welcomemail2;
+use App\Mail\welcomemail;
 use App\Notifications\ReplyMarkedAsBestReply;
 use App\Reply;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
@@ -24,6 +27,12 @@ class DiscussionsController extends Controller
         $this->middleware(['auth', 'verified'])->only(['create', 'store']);
     }
 
+
+    public function sendemail()
+    {
+        Mail::to('sfsdfdf@dsf.in')->send(new welcomemail);
+        return new welcomemail2();
+    }
     public function backupDatabase()
     {
         $dst = dirname(public_path()) . "/storage/app";
