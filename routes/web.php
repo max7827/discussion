@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
+<<<<<<< HEAD
     return view('d');
+=======
+    return view('webcam');
+>>>>>>> f2e990bae63d0a361b0c4c24d3c4665fd3b16dd0
 });
 
 Auth::routes(['verify' => true]);
